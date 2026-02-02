@@ -1,98 +1,98 @@
-# DHPSO算法(Dynamic Topology Hybrid PSO Algorithm)
+# DHPSO Algorithm (Dynamic Topology Hybrid PSO Algorithm)
 
-## 1. 算法简介
+## 1. Algorithm Introduction
 
-DHPSO（Dynamic Topology Hybrid PSO Algorithm）是一种改进的粒子群优化算法，专为多无人机任务分配问题设计。该算法结合了分布式计算思想和混合优化策略，能够高效地解决不同规模的任务分配场景。
+DHPSO (Dynamic Topology Hybrid PSO Algorithm) is an improved particle swarm optimization algorithm designed specifically for multi-UAV task allocation problems. The algorithm combines distributed computing concepts and hybrid optimization strategies, enabling efficient solution of task allocation scenarios of different scales.
 
-### 1.1 核心特性
+### 1.1 Core Features
 
-- **拓扑结构动态调整**：算法在迭代过程中会在环形拓扑和全连接拓扑之间切换，平衡局部搜索和全局搜索能力
-- **混合惯性权重策略**：采用线性和指数混合的惯性权重调整方式，提高收敛速度和搜索精度
-- **变异操作**：引入变异机制增强种群多样性，避免陷入局部最优
-- **分布式计算**：支持多进程并行计算，提高大规模场景下的求解效率
+- **Dynamic Topology Adjustment**: The algorithm switches between ring topology and fully connected topology during iterations to balance local and global search capabilities
+- **Hybrid Inertia Weight Strategy**: Uses a combination of linear and exponential inertia weight adjustment to improve convergence speed and search precision
+- **Mutation Operation**: Introduces mutation mechanism to enhance population diversity and avoid local optima
+- **Distributed Computing**: Supports multi-process parallel computing to improve solving efficiency in large-scale scenarios
 
-## 2. 目录结构
+## 2. Directory Structure
 
 ```
 DHPSO/
-├── case/                  # 任务场景配置文件
-│   ├── large_1.json       # 大型场景配置1
-│   ├── large_2.json       # 大型场景配置2
-│   ├── medium_1.json      # 中型场景配置1
-│   ├── medium_2.json      # 中型场景配置2
-│   ├── small_1.json       # 小型场景配置1
-│   └── small_2.json       # 小型场景配置2
-├── dhpso.py               # DHPSO算法实现
-├── evaluate.py            # 评估系统实现
-└── task_pic/              # 任务分配可视化结果（运行后生成）
-    ├── small/             # 小型场景分配图
-    ├── medium/            # 中型场景分配图
-    └── large/             # 大型场景分配图
+├── case/                  # Task scenario configuration files
+│   ├── large_1.json       # Large scenario configuration 1
+│   ├── large_2.json       # Large scenario configuration 2
+│   ├── medium_1.json      # Medium scenario configuration 1
+│   ├── medium_2.json      # Medium scenario configuration 2
+│   ├── small_1.json       # Small scenario configuration 1
+│   └── small_2.json       # Small scenario configuration 2
+├── dhpso.py               # DHPSO algorithm implementation
+├── evaluate.py            # Evaluation system implementation
+└── task_pic/              # Task allocation visualization results (generated after running)
+    ├── small/             # Small scenario allocation diagrams
+    ├── medium/            # Medium scenario allocation diagrams
+    └── large/             # Large scenario allocation diagrams
 ```
 
-## 3. 系统架构
+## 3. System Architecture
 
-### 3.1 算法模块
+### 3.1 Algorithm Module
 
-DHPSO算法的核心实现位于`dhpso.py`文件中，主要功能包括参数初始化、拓扑结构管理、适应度计算、粒子更新、变异操作和结果提取。
+The core implementation of the DHPSO algorithm is located in the `dhpso.py` file, which mainly includes parameter initialization, topology management, fitness calculation, particle update, mutation operation, and result extraction.
 
-### 3.2 评估系统
+### 3.2 Evaluation System
 
-评估系统实现位于`evaluate.py`文件中，主要功能包括任务场景生成、多算法比较、结果可视化和数据统计。
+The evaluation system is implemented in the `evaluate.py` file, which mainly includes task scenario generation, multi-algorithm comparison, result visualization, and data statistics.
 
-## 4. 算法原理
+## 4. Algorithm Principles
 
-### 4.1 编码方式
+### 4.1 Encoding Method
 
-DHPSO采用实数编码方式，每个粒子由任务序列编码和无人机分配编码两部分组成，分别决定任务执行顺序和分配方案。
+DHPSO uses real-number encoding, where each particle consists of two parts: task sequence encoding and UAV allocation encoding, which determine the task execution order and allocation scheme respectively.
 
-### 4.2 核心机制
+### 4.2 Core Mechanisms
 
-- **适应度函数**：考虑任务价值和执行时间的权衡，优化任务分配方案
-- **拓扑结构动态调整**：在环形拓扑和全连接拓扑之间切换，平衡局部搜索和全局搜索能力
-- **混合惯性权重策略**：采用线性和指数混合的惯性权重调整方式，提高收敛速度和搜索精度
-- **变异操作**：引入变异机制增强种群多样性，避免陷入局部最优
+- **Fitness Function**: Considers the trade-off between task value and execution time to optimize task allocation schemes
+- **Dynamic Topology Adjustment**: Switches between ring topology and fully connected topology to balance local and global search capabilities
+- **Hybrid Inertia Weight Strategy**: Uses a combination of linear and exponential inertia weight adjustment to improve convergence speed and search precision
+- **Mutation Operation**: Introduces mutation mechanism to enhance population diversity and avoid local optima
 
-## 5. 评估系统使用
+## 5. Evaluation System Usage
 
-### 5.1 场景配置
+### 5.1 Scenario Configuration
 
-评估系统支持三种规模的任务场景：
+The evaluation system supports three scales of task scenarios:
 
-| 场景规模 | 无人机数量 | 目标数量 | 地图大小 |
-|---------|-----------|---------|----------|
-| 小型    | 5         | 30      | 5000     |
-| 中型    | 10        | 60      | 10000    |
-| 大型    | 15        | 90      | 15000    |
+| Scenario Scale | Number of UAVs | Number of Targets | Map Size |
+|---------------|----------------|-------------------|----------|
+| Small         | 5              | 30                | 5000     |
+| Medium        | 10             | 60                | 10000    |
+| Large         | 15             | 90                | 15000    |
 
-### 5.2 运行评估
+### 5.2 Running Evaluation
 
-运行评估系统的命令：
+Command to run the evaluation system:
 
 ```bash
 python evaluate.py
 ```
 
-系统会自动生成三种规模的场景，并对所有算法进行测试和比较。
+The system will automatically generate three scales of scenarios and test and compare all algorithms.
 
-### 5.3 结果输出
+### 5.3 Result Output
 
-评估完成后，系统会生成以下输出：
+After evaluation, the system will generate the following outputs:
 
-1. **任务分配图**：保存在`task_pic`目录下，按场景规模分类
-2. **性能比较图表**：包括最大奖励、平均奖励、最大时间、平均时间等指标
-3. **CSV数据文件**：保存各算法的详细性能数据
+1. **Task Allocation Diagrams**: Saved in the `task_pic` directory, categorized by scenario scale
+2. **Performance Comparison Charts**: Including maximum reward, average reward, maximum time, average time and other indicators
+3. **CSV Data Files**: Saving detailed performance data of each algorithm
 
-## 6. 总结
+## 6. Summary
 
-DHPSO算法是一种高效的多无人机任务分配算法，具有以下特点：
+DHPSO is an efficient multi-UAV task allocation algorithm with the following features:
 
-1. **拓扑结构动态调整**：通过切换拓扑结构平衡局部和全局搜索能力
-2. **混合惯性权重策略**：提高算法收敛速度和搜索精度
-3. **变异操作**：增强种群多样性，避免陷入局部最优
-4. **分布式计算**：支持并行计算，提高求解效率
-5. **多规模适应**：能够有效处理从小型到大型的各种任务场景
+1. **Dynamic Topology Adjustment**: Balances local and global search capabilities by switching topologies
+2. **Hybrid Inertia Weight Strategy**: Improves algorithm convergence speed and search precision
+3. **Mutation Operation**: Enhances population diversity and avoids local optima
+4. **Distributed Computing**: Supports parallel computing to improve solving efficiency
+5. **Multi-scale Adaptation**: Effectively handles various task scenarios from small to large scales
 
-通过与其他算法的比较，DHPSO在任务分配质量和计算效率方面都表现出了良好的性能，为多无人机协同任务分配问题提供了一种有效的解决方案。
+Through comparison with other algorithms, DHPSO has demonstrated good performance in both task allocation quality and computational efficiency, providing an effective solution for multi-UAV collaborative task allocation problems.
 
 
