@@ -239,7 +239,7 @@ def evaluate(vehicle_num, target_num, map_size, file_name=""):
     
     for i in range(10):
         env = Env(vehicle_num, target_num, map_size, file_name=file_name, visualized=True)
-        for j in range(5):
+        for j in range(30):
             p = Pool(5)
             
             hpso = HPSO(vehicle_num, target_num, env.targets, env.vehicles_speed, env.time_lim)
@@ -385,7 +385,7 @@ def evaluate(vehicle_num, target_num, map_size, file_name=""):
     t_slpso, r_slpso = [], []
 
     for i in range(10):
-        for j in range(5):
+        for j in range(30):
             if j < len(re_hpso[i]):
                 t_hpso.append(re_hpso[i][j][1])
                 r_hpso.append(re_hpso[i][j][0])
@@ -414,4 +414,5 @@ def evaluate(vehicle_num, target_num, map_size, file_name=""):
 if __name__ == '__main__':
     evaluate(5, 30, 5e3)
     evaluate(10, 60, 1e4)
+
     evaluate(15, 90, 1.5e4)
